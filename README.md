@@ -68,6 +68,7 @@ j1gffknzlph2ox2f6vc3yxppfasiwn-a530xxhgxks8w66vsmkzbsf53 17
 dans le master deploy la stack 
 
 ```bash
+cp docker-compose-swarm.yml swarm-master:/
 docker exec -it swarm-master sh
 docker stack deploy -c docker-compose.yml symfony-swarm
 ```
