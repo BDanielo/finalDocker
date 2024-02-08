@@ -35,12 +35,40 @@ Si la bdd ne s'initialize pas relancer faire un down puis un up (ça ne devrais 
 Lancer le swarm
 
 ```bash
-docker swarm init
+docker run --privileged -d --name swarm-master docker:dind
+docker run --privileged -d --name swarm-node1 docker:dind
+docker run --privileged -d --name swarm-node2 docker:dind
 ```
 
-Deploy la stack
+Init le swarm master
 
 ```bash
-docker stack deploy -c docker-compose-swarm.yml test-symfo
+docker exec -it swarm-master sh
+docker swarm ini
+```
+
+Init les nodes (changer le join selon celui decrit dans le master)
+
+```bash
+docker exec -it swarm-node1 sh
+docker swarm join --token SWMTKN-1-5wo5d7kuonb8apz0xuip
+j1gffknzlph2ox2f6vc3yxppfasiwn-a530xxhgxks8w66vsmkzbsf53 17
+2.17.0.9:2377
+```
+
+pareil pour node 2 
+
+```bash
+docker exec -it swarm-node2 sh
+docker swarm join --token SWMTKN-1-5wo5d7kuonb8apz0xuip
+j1gffknzlph2ox2f6vc3yxppfasiwn-a530xxhgxks8w66vsmkzbsf53 17
+2.17.0.9:2377
+```
+
+dans le master deploy la stack 
+
+```bash
+docker exec -it swarm-master sh
+docker stack deploy -c docker-compose.yml symfony-swarm
 ```
 
