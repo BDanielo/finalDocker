@@ -1,5 +1,11 @@
 ## TP Final docker avancé
 
+Cloner le repo :
+
+```bash
+git clone https://github.com/BDanielo/finalDocker.git
+```
+
 # Docker file
 
 Build l'image
@@ -9,12 +15,6 @@ docker build -t symfony-tpfinal .
 ```
 
 # Docker Compose
-
-Cloner le repo :
-
-```bash
-git clone https://github.com/BDanielo/finalDocker.git
-```
 
 Lors du premier lancement du docker compose faire un build
 
