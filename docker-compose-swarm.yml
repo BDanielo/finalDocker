@@ -3,6 +3,8 @@ version: '3.8'
 services:
   db:
     image: mysql:8.2
+    deploy:
+      replicas: 1
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_PASSWORD=somepass
@@ -19,6 +21,9 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.role == worker
     depends_on:
       - db
     ports:
