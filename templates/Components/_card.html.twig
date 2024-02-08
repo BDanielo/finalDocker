@@ -1,0 +1,33 @@
+<div class="blog-card">
+	<div class="blog-card-img">
+		{% if post.imageName %}
+		<a href="{{ path('app.posts.show', {slug: post.slug}) }}">
+			<img src="{{ post.imageName ? vich_uploader_asset(post) }}" alt="{{ post.title }}" loading="lazy">
+		</a>
+		{% else %}
+		<a href="{{ path('app.posts.show', {slug: post.slug}) }}">
+			<img src="{{ asset('images/default.jpg') }}" alt="image par défaut" loading="lazy">
+		</a>
+		{% endif %}
+	</div>
+	<div class="blog-card-content">
+		<p class="blog-card-content-date">
+			<i class="bi bi-calendar-range-fill"></i>
+			{{ post.createdAt|format_datetime('full', 'none') }}
+		</p>
+		<a href="{{ path('app.posts.show', {slug: post.slug}) }}">
+			<h2 class="blog-card-content-header">{{ post.title }}</h2>
+		</a>
+		<p class="blog-card-content-text">{{ post.content|striptags|slice(0, 150) ~ '...' }}</p>
+		<p class="blog-card-content-user text-muted">{{ post.author.fullName }}</p>
+		{% if app.request.get('_route') == 'admin.posts.index' %}
+			<div class="d-flex justify-content-between align-items-center">
+				<a href="{{ path('admin.posts.update', {id: post.id}) }}" class="btn btn-warning">
+					<i class="bi bi-pencil-square"></i>
+					Modifier
+				</a>
+				{% include 'Backend/Post/_deleteForm.html.twig' %}
+			</div>
+		{% endif %}
+	</div>
+</div>

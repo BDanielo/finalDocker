@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ post.title }}
+	|
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="banner" style="background: center / cover url('{{ vich_uploader_asset(post) }}')">
+		<div class="banner-header">
+			<h1 class="banner-header-title">{{ post.title }}</h1>
+		</div>
+	</section>
+	<section class="container mt-4">
+		<div class="row">
+			<aside class="col-md-4">
+				<h2>Informations:</h2>
+				<p>
+					<strong>Date:</strong>
+					{{ post.createdAt|format_datetime('full', 'none') }}
+				</p>
+				<p>
+					<strong>Auteur:</strong>
+					{{ post.author.fullName }}
+				</p>
+			</aside>
+			<post class="col-md-8">
+				{{ post.content|raw }}
+			</post>
+		</div>
+	</section>
+{% endblock %}

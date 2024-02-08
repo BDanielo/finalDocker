@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des posts |
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Liste des posts</h1>
+		<a href="{{ path('app.posts.create') }}" class="btn btn-primary">Créer un post</a>
+		<div class="blog-card-list mt-4">
+			{% for post in posts %}
+				{% include 'Components/_card.html.twig' %}
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

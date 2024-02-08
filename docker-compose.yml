@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+
+  db:
+    image: mysql:8.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_PASSWORD=somepass
+      - MYSQL_DATABASE=dockerFinal
+      - MYSQL_USER=someuser
+    networks:
+      - web
+    volumes:
+      - db-data:/var/lib/mysql
+  symfony:
+    build: .
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - 8089:80
+    networks:
+      - web
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8088:8080
+#    networks:
+#      - web
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+    db-data:
